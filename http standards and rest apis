@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP Standards and REST API</title>
+</head>
+
+<body>
+
+    <h1>HTTP Standards & REST API</h1>
+
+    <button onclick="getUsers()">GET Users</button>
+    <button onclick="createUser()">POST User</button>
+
+    <pre id="output"></pre>
+
+    <script>
+        const API_URL = "https://jsonplaceholder.typicode.com/users";
+
+        // GET request - retrieve data
+        async function getUsers() {
+            try {
+                const response = await fetch(API_URL);
+
+                if (!response.ok) {
+                    throw new Error("HTTP Error: " + response.status);
+                }
+
+                const data = await response.json();
+
+                document.getElementById("output").textContent =
+                    JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                document.getElementById("output").textContent =
+                    error.message;
+            }
+        }
+
+
+        // POST request - create data
+        async function createUser() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: "Tanishk",
+                        email: "tanishkmalaraa@gmail.com"
+                    })
+                });
+
+                const data = await response.json();
+
+                document.getElementById("output").textContent =
+                    JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                document.getElementById("output").textContent =
+                    error.message;
+            }
+        }
+    </script>
+
+</body>
+</html>
